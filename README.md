@@ -8,6 +8,7 @@ No build step: everything served lives in `public/`.
 - `public/index.html`, `public/404.html`, `public/style.css` – the site
 - `public/_headers` – security headers (Cloudflare Pages format)
 - `public/robots.txt`
+- `wrangler.jsonc` – Cloudflare config (static assets from `public/`, serves `404.html` for unknown paths)
 
 ## Local preview
 
@@ -18,7 +19,7 @@ python3 -m http.server -d public 8000
 ## Deploy (Cloudflare Pages, git integration)
 
 1. Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to git → select this repo.
-2. Build settings: framework preset **None**, build command *(empty)*, output directory `public`.
+2. Build settings: build command *(empty)*; deploy command `npx wrangler deploy` (reads `wrangler.jsonc`, which points at `public/`).
 3. Production branch: `main`. Other branches/PRs get preview URLs automatically.
 4. Project → Custom domains → add `www.taku.ie` (and `taku.ie`; see below).
 
